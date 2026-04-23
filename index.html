@@ -99,6 +99,58 @@
             color: white;
         }
 
+        /* Support Button im Hero */
+        .hero-button-wrapper {
+            margin-top: 2.5rem;
+            animation: fadeUp 0.6s ease-out 0.2s both;
+        }
+
+        .btn-support {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--accent-red, #d32f2f), var(--accent-secondary, #1b5e20));
+            color: white;
+            text-decoration: none;
+            padding: 0.9rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 60px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-support:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+            gap: 1rem;
+        }
+
+        .btn-support .btn-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.25s;
+        }
+
+        .btn-support:hover .btn-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Falls du die vorhandene fadeUp-Animation schon hast, sonst hinzufügen */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
         /* MANIFEST — Zweispaltiges Layout */
         .manifest-grid {
             display: grid;
@@ -356,6 +408,14 @@
     <div class="hero-content">
         <img src="Logo_Transparent.png" alt="Liste GAZA Logo" class="header-logo">
         <div class="hero-tagline">Stimmen für globale Gerechtigkeit <br> Gemeinderatswahl Graz 2026</div>
+
+        <!-- NEU: Button zur Unterstützung -->
+        <div class="hero-button-wrapper">
+            <a href="unterstuetzen.html" class="btn-support">
+                ✍️ Unterstütze uns mit deiner Unterschrift
+                <span class="btn-arrow">→</span>
+            </a>
+        </div>
     </div>
 </header>
 
@@ -385,7 +445,8 @@
                 Ungleichheit wächst – und Konflikte nehmen zu. Wenn mächtige Staaten um Einfluss und Rohstoffe kämpfen,
                 entstehen Spannungen, die immer wieder auch in Kriegen enden. Der imperiale Westen/ Norden will keine
                 friedliche Weltordnung mit fairen Handelsbeziehungen, sondern seine Profite auf Kosten anderer Völker
-                maximieren. Ihr anti-imperialistischer Widerstand wird mit allen militärischen Mitteln unterdrückt.</p><br>
+                maximieren. Ihr anti-imperialistischer Widerstand wird mit allen militärischen Mitteln unterdrückt.</p>
+            <br>
             <p><strong>Warum „Weiter so“ keine gute Lösung ist</strong><br>
                 Trotzdem erzählen viele Politiker:innen, dass wir einfach so weitermachen können wie bisher. Doch das
                 überzeugt immer weniger Menschen. Statt echte Lösungen zu suchen, wird oft mit Angstmache gearbeitet,
