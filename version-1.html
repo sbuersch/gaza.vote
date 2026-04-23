@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste GAZA — global · gerecht · unüberhörbar</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --bg-dark: #0a0c12;
+        --surface-dark: #11141f;
+        --surface-glass: rgba(20, 25, 40, 0.65);
+        --card-glass: rgba(18, 22, 35, 0.75);
+        --text-bright: #f0f3fa;
+        --text-soft: #b9c3e0;
+        --accent-neon-red: #ff3366;
+        --accent-neon-green: #00f5a0;
+        --accent-gold: #ffbc3c;
+        --border-glow: rgba(255, 51, 102, 0.4);
+        --shadow-glow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+        background-color: var(--bg-dark);
+        background-image: radial-gradient(circle at 25% 0%, rgba(255, 51, 102, 0.08) 0%, transparent 50%),
+                          radial-gradient(circle at 85% 100%, rgba(0, 245, 160, 0.06) 0%, transparent 60%);
+        color: var(--text-bright);
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        line-height: 1.5;
+        scroll-behavior: smooth;
+    }
+
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* Glas-Effekte */
+    .glass-card {
+        backdrop-filter: blur(14px);
+        background: var(--card-glass);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 2rem;
+        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+        transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .glass-card:hover {
+        border-color: rgba(255, 51, 102, 0.35);
+        transform: translateY(-5px);
+        box-shadow: 0 28px 40px -16px rgba(255, 51, 102, 0.2);
+    }
+
+    /* Header – dramatisch, modern */
+    .hero {
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-backdrop {
+        position: absolute;
+        inset: 0;
+        background: url('Plakatvorlage_logo_soldat_cut.jpg') center/cover no-repeat;
+        filter: brightness(0.45) contrast(1.1) blur(2px);
+        transform: scale(1.02);
+        z-index: -2;
+    }
+
+    .hero-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(10, 12, 18, 0.85) 0%, rgba(17, 20, 31, 0.7) 100%);
+        z-index: -1;
+    }
+
+    .hero-content {
+        text-align: center;
+        z-index: 2;
+        padding: 2rem;
+        animation: fadeUp 0.9s ease-out;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-logo {
+        max-width: 340px;
+        width: 80%;
+        filter: drop-shadow(0 0 20px rgba(0, 245, 160, 0.3));
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-tagline {
+        font-size: 1rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        background: linear-gradient(120deg, var(--accent-neon-red), var(--accent-neon-green));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 60px;
+        backdrop-filter: blur(4px);
+        display: inline-block;
+    }
+
+    /* Section Titels – Neon */
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 3.5rem 0 2rem 0;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title span {
+        background: linear-gradient(125deg, #fff, var(--accent-neon-red), var(--accent-neon-green));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent-neon-red), var(--accent-neon-green));
+        border-radius: 4px;
+    }
+
+    /* Manifest Karte */
+    .manifest-card {
+        padding: 2.5rem;
+        margin: 2rem 0 1rem;
+    }
+
+    .manifest-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #fff, var(--accent-gold));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .preview-text {
+        color: var(--text-soft);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .expandable-content {
+        display: none;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        color: var(--text-soft);
+    }
+
+    .expandable-content.active {
+        display: block;
+        animation: fadeSlide 0.4s ease;
+    }
+
+    @keyframes fadeSlide {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* modern button */
+    .btn-neon {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 51, 102, 0.6);
+        padding: 0.7rem 1.8rem;
+        border-radius: 60px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: 0.25s;
+        color: var(--text-bright);
+        backdrop-filter: blur(8px);
+        margin-top: 1.2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-neon:hover {
+        background: var(--accent-neon-red);
+        border-color: var(--accent-neon-red);
+        box-shadow: 0 0 12px rgba(255, 51, 102, 0.5);
+        transform: scale(0.97);
+        color: white;
+    }
+
+    /* Themen-Grid – modern minimal */
+    .topics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0 3rem;
+    }
+
+    .topic-card {
+        backdrop-filter: blur(12px);
+        background: var(--surface-glass);
+        border-radius: 1.8rem;
+        overflow: hidden;
+        transition: all 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .topic-card:hover {
+        border-color: rgba(0, 245, 160, 0.4);
+        transform: translateY(-6px);
+    }
+
+    .topic-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.4s;
+    }
+
+    .topic-card:hover .topic-img {
+        transform: scale(1.03);
+    }
+
+    .topic-body {
+        padding: 1.8rem;
+    }
+
+    .topic-body h3 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(145deg, #fff, var(--accent-neon-green));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .topic-preview {
+        color: var(--text-soft);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Akkordeon Neumorph */
+    .accordion-modern {
+        background: var(--surface-glass);
+        backdrop-filter: blur(10px);
+        border-radius: 1.5rem;
+        margin-bottom: 1.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: 0.2s;
+    }
+
+    .accordion-header {
+        padding: 1.2rem 1.8rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        border-radius: 1.5rem;
+    }
+
+    .accordion-header::-webkit-details-marker {
+        display: none;
+    }
+
+    .accordion-header::after {
+        content: '+';
+        font-size: 1.7rem;
+        font-weight: 300;
+        color: var(--accent-neon-red);
+        transition: transform 0.2s;
+    }
+
+    details[open] .accordion-header::after {
+        content: '−';
+        color: var(--accent-neon-green);
+    }
+
+    .accordion-body {
+        padding: 0.5rem 1.8rem 1.8rem 1.8rem;
+        color: var(--text-soft);
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    footer {
+        margin-top: 5rem;
+        background: rgba(5, 7, 12, 0.7);
+        backdrop-filter: blur(12px);
+        text-align: center;
+        padding: 3rem;
+        border-top: 1px solid rgba(255, 51, 102, 0.2);
+    }
+
+    .footer-logo-sm {
+        max-width: 90px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+
+    @media (max-width: 760px) {
+        .container {
+            padding: 0 1.2rem;
+        }
+        .section-title {
+            font-size: 1.9rem;
+        }
+        .manifest-title {
+            font-size: 1.6rem;
+        }
+        .topic-body h3 {
+            font-size: 1.4rem;
+        }
+    }
+
+    /* Badges */
+    .chip {
+        display: inline-block;
+        background: rgba(255, 51, 102, 0.2);
+        backdrop-filter: blur(4px);
+        padding: 0.2rem 0.8rem;
+        border-radius: 30px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+        color: var(--accent-neon-red);
+        letter-spacing: 0.5px;
+    }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-backdrop"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+        <img src="Logo_Transparent.png" alt="Liste GAZA" class="hero-logo">
+        <div class="hero-tagline">✶ Stimmen für globale Gerechtigkeit ✶ Gemeinderatswahl Graz 2026</div>
+    </div>
+</div>
+
+<main class="container">
+    <!-- Manifest modern -->
+    <div class="glass-card manifest-card">
+        <div class="chips-container">
+
+<div class="chip">#FreePalestine</div>
+<div class="chip">#GrazWahl2026</div>
+<div class="chip">#ListeGAZA</div>
+<div class="chip">#EndApartheid</div>
+<div class="chip">#AntiImperialismus</div>
+<div class="chip">#StopptRassismus</div>
+<div class="chip">#GlobalJustice</div>
+<div class="chip">#BDS</div>
+</div>
+        <h2 class="manifest-title">Warum wir kandidieren</h2>
+        <div class="preview-text">
+            <p>Immer mehr Menschen merken: So wie Politik gerade läuft, kann es nicht weitergehen. Viele Probleme werden größer statt kleiner – egal, welche Partei gerade an der Macht ist. Das liegt nicht nur an Entscheidungen, sondern daran, dass das ganze System an seine Grenzen stößt.</p>
+        </div>
+        <div class="expandable-content" id="manifestText">
+            <p><strong>Das Problem mit dem System</strong><br>
+            Unser Wirtschaftssystem basiert darauf, dass immer mehr produziert und immer mehr Gewinn gemacht werden muss. Wachstum ist Pflicht – egal, welche Folgen das hat. Gleichzeitig liegt ein Großteil des Reichtums in den Händen weniger Menschen.</p>
+            <p>Das führt dazu, dass Mensch und Umwelt immer stärker ausgebeutet werden. Ressourcen werden knapper, Ungleichheit wächst – und Konflikte nehmen zu. Wenn mächtige Staaten um Einfluss und Rohstoffe kämpfen, entstehen Spannungen, die immer wieder auch in Kriegen enden. Der imperiale Westen/Norden will keine friedliche Weltordnung, sondern seine Profite auf Kosten anderer Völker maximieren.</p>
+            <p><strong>Warum „Weiter so“ keine gute Lösung ist</strong><br>
+            Trotzdem erzählen viele Politiker:innen, dass wir einfach so weitermachen können wie bisher. Doch das überzeugt immer weniger Menschen. Statt echte Lösungen zu suchen, wird oft mit Angstmache gearbeitet, mit Feindbildproduktionen oder mit Ablenkung. So stellen die neuen Kopftuchverbote nichts anderes als rassistische Symbolpolitik dar.</p>
+            <p>Der Regierungskurs wird immer autoritärer: Einschränkung der Bekleidungsfreiheit, Einschränkung der Meinungsfreiheit. So hält die Grazer Stadtpolitik noch immer an einem Beschluss gegen die internationale BDS-Bewegung und gegen Anti-Zionismus fest. Anstatt Völkermord in Gaza zu verurteilen, sanktionieren sie Palästina-Solidarität.</p>
+            <p><strong>Österreich soll wieder kriegstauglich werden</strong><br>
+            Milliarden sollen in die Aufrüstung gehen – Rüstungsgüter vom Völkermörder Israel. Wir wollen nicht sehenden Auges in einen nächsten Krieg getrieben werden. Es ist Zeit aufzuwachen.</p>
+            <p><strong>Gaza steht für die brutale Zuspitzung dieser Weltordnung</strong><br>
+            Gaza steht für die Hoffnung, damit ein für alle Mal Schluss zu machen. Die Grausamkeiten von USA und Israel haben Millionen aufwachen lassen. Wir wollen als Teil dieser Bewegung den Kapitalismus überwinden – lokal und global. Deshalb kandidiert die Liste GAZA bei der Grazer Gemeinderatswahl 2026.</p>
+        </div>
+        <button class="btn-neon" data-expand="manifestText">⟳ Manifest entfalten</button>
+    </div>
+
+    <!-- Kernthemen Bereich -->
+    <div>
+        <h2 class="section-title"><span>✹ Kernthemen</span></h2>
+        <div class="topics-grid">
+            <!-- Völkerrecht -->
+            <div class="topic-card">
+                <img src="Bild_fuer_Text_2_Voelkerrecht.png" alt="Völkerrecht" class="topic-img">
+                <div class="topic-body">
+                    <h3>Völkerrecht</h3>
+                    <div class="topic-preview">Recht & Gerechtigkeit für alle, kein Recht des Stärkeren. Systematische Straflosigkeit brechen.</div>
+                    <div class="expandable-content" id="lawDetail">
+                        <p>Die ständige Missachtung des Völkerrechts durch Vetomächte und der „Hague Invasion Act“ zeigen: Wir brauchen einen machtvollen Mechanismus, der Einhaltung erzwingt. Gaza beweist, dass das System versagt hat. Neue Institutionen, echter Universalismus – dafür kämpfen wir.</p>
+                    </div>
+                    <button class="btn-neon" data-expand="lawDetail">Position lesen</button>
+                </div>
+            </div>
+            <!-- Imperialismus -->
+            <div class="topic-card">
+                <img src="Bild_fuer_Text_5_Imperialismus.png" alt="Imperialismus" class="topic-img">
+                <div class="topic-body">
+                    <h3>Imperialismus</h3>
+                    <div class="topic-preview">US-Imperialismus: Wurzel des Übels. Militärbasen, Sanktionen, Kriege – wir sagen Nein zur globalen Dominanz.</div>
+                    <div class="expandable-content" id="imperialDetail">
+                        <p>Wirtschaftliche Erpressung, 800 Stützpunkte, Stellvertreterkriege – der Westen hält die Welt in Abhängigkeit. Wir wollen echte Souveränität für den globalen Süden und ein Ende der NATO-geführten Kriege. Keine Aufrüstung, sondern Entimperialisierung.</p>
+                    </div>
+                    <button class="btn-neon" data-expand="imperialDetail">Position lesen</button>
+                </div>
+            </div>
+            <!-- Kopftuchverbot + Rassismus -->
+            <div class="topic-card">
+                <img src="Bild_fuer_Text_6_Kopftuchverbot.png" alt="Kopftuchverbot" class="topic-img">
+                <div class="topic-body">
+                    <h3>Kopftuchverbot</h3>
+                    <div class="topic-preview">Rassistische Symbolpolitik statt echter Lösungen. Solidarität mit betroffenen Mädchen & Lehrkräften.</div>
+                    <div class="expandable-content" id="headscarfDetail">
+                        <p>Das Verbot ist ein anti-muslimischer Rassismus, der von Sozialabbau ablenkt. Wir unterstützen den zivilen Ungehorsam von Lehrer:innen und Aktionskomitees. Niemand darf wegen ihrer Kleidung diskriminiert werden – das gilt für Graz wie für Ramallah.</p>
+                    </div>
+                    <button class="btn-neon" data-expand="headscarfDetail">Position lesen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weitere Positionen als modernes Akkordeon mit glassmorph -->
+    <h2 class="section-title"><span>∞ Weitere Grundsätze</span></h2>
+
+    <div class="accordion-modern">
+        <details>
+            <summary class="accordion-header">🔍 Repression gegen Systemkritik – auch in Graz</summary>
+            <div class="accordion-body">
+                <p>Überwachung, Kontosperrungen, Hausdurchsuchungen – der Staat schränkt Palästinasolidarität ein. Der Beschluss gegen BDS & Anti-Zionismus ist ein Angriff auf die Meinungsfreiheit. Wir fordern die sofortige Aufhebung dieser undemokratischen Maßnahmen. Solidarität mit allen politisch Verfolgten.</p>
+            </div>
+        </details>
+    </div>
+    <div class="accordion-modern">
+        <details>
+            <summary class="accordion-header">📰 Medien & Wahrheit – Die vierte Gewalt im Gleichschritt</summary>
+            <div class="accordion-body">
+                <p>ORF, Krone, Kleine Zeitung: Systematische Israelfreundlichkeit, asymmetrische Sprache – Terror vs. Präventivschlag. Die Liste GAZA bricht das Schweigen und liefert antiimperialistische Analyse. Wir brauchen eine Medienpolitik, die nicht der Staatsräson folgt.</p>
+            </div>
+        </details>
+    </div>
+    <div class="accordion-modern">
+        <details>
+            <summary class="accordion-header">⚡ Anti-Zionismus ≠ Antisemitismus – sondern Anti-Rassismus</summary>
+            <div class="accordion-body">
+                <p>Zionismus ist eine rassistische Siedlerideologie. Anti-Zionismus bedeutet Eintreten für gleiche Rechte für Palästinenser:innen und Jüd:innen. Viele jüdische Stimmen unterstützen das. Wir sagen:„From the river to the sea, Palestine will be free“ ist keine Hassrede, sondern eine Vision der Gerechtigkeit.</p>
+            </div>
+        </details>
+    </div>
+    <div class="accordion-modern">
+        <details>
+            <summary class="accordion-header">🧱 Apartheidstaat Israel – Schluss mit Rassismus & Völkermord</summary>
+            <div class="accordion-body">
+                <p>Menschenrechtsorganisationen wie Amnesty nennen Israel Apartheid. Die Mauer, Siedlungen, Todesstrafe für Palästinenser:innen – das ist Faschismus pur. Wir kämpfen für Waffenembargo, Sanktionen und Solidarität mit dem palästinensischen Widerstand.</p>
+            </div>
+        </details>
+    </div>
+    <div class="accordion-modern">
+        <details>
+            <summary class="accordion-header">✊ Nie wieder Faschismus! Keine Komplizenschaft mit Genozid</summary>
+            <div class="accordion-body">
+                <p>Österreich schweigt zu 100.000+ Toten in Gaza, liefert Motoren für Drohnen, feiert israelische „Selbstverteidigung“. Historische Verantwortung verpflichtet zum Handeln: Israel sanktionieren, Assoziationsabkommen aussetzen. Nie wieder ist für alle – für Jüd:innen, Palästinenser:innen und alle Unterdrückten.</p>
+            </div>
+        </details>
+    </div>
+
+</main>
+
+<footer>
+    <img src="sticker_aus_social_media_logo.png" alt="Liste GAZA Logo" class="footer-logo-sm">
+    <p style="margin: 0.5rem 0;">Liste GAZA – Stimmen für globale Gerechtigkeit</p>
+    <p style="font-size: 0.8rem; opacity: 0.6;">Graz, 2026 • Für eine antikapitalistische, feministische, antiimperialistische Zukunft</p>
+    <div style="margin-top: 1rem;">✹ #FreePalestine ✹ #BoycottApartheid ✹ #NoToNATO ✹</div>
+</footer>
+
+<script>
+    // Steuert alle modernen Aufklapp-Buttons
+    document.querySelectorAll('.btn-neon[data-expand]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-expand');
+            const contentBlock = document.getElementById(targetId);
+            if (contentBlock) {
+                contentBlock.classList.toggle('active');
+                this.textContent = contentBlock.classList.contains('active') ? '▲ Weniger anzeigen' : '▼ Mehr lesen';
+            }
+        });
+    });
+
+    // Initial Text für Manifest Button setzen
+    const manifestBtn = document.querySelector('.btn-neon[data-expand="manifestText"]');
+    if(manifestBtn) manifestBtn.textContent = '▼ Manifest entfalten';
+</script>
+</body>
+</html>

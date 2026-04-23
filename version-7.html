@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste GAZA — Gemeinderatswahl Graz 2026</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --bg: #010101;
+        --surface: #0c0f17;
+        --surface-elevated: #131824;
+        --text-primary: #f0f2f8;
+        --text-secondary: #a9b2d0;
+        --accent-1: #ff2e5c;
+        --accent-2: #00e6b8;
+        --accent-3: #ffb84d;
+        --border-dim: rgba(255, 255, 255, 0.05);
+        --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    body {
+        background-color: var(--bg);
+        background-image: radial-gradient(circle at 15% 30%, rgba(255, 46, 92, 0.08) 0%, transparent 40%),
+                          radial-gradient(circle at 85% 70%, rgba(0, 230, 184, 0.06) 0%, transparent 45%);
+        color: var(--text-primary);
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        line-height: 1.5;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* ========= HERO – asymmetrisch, modern ========= */
+    .hero {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: url('Plakatvorlage_logo_soldat_cut.jpg') center 30% / cover no-repeat;
+        filter: brightness(0.4) contrast(1.2) saturate(1.1);
+        z-index: -2;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(125deg, rgba(0,0,0,0.85) 0%, rgba(10,12,22,0.7) 70%, transparent 100%);
+        z-index: -1;
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-left {
+        padding: 2rem;
+    }
+
+    .hero-logo {
+        max-width: 320px;
+        width: 90%;
+        filter: drop-shadow(0 0 20px rgba(0,230,184,0.3));
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background: rgba(255, 46, 92, 0.2);
+        backdrop-filter: blur(8px);
+        padding: 0.4rem 1rem;
+        border-radius: 60px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: var(--accent-1);
+        margin-bottom: 1.2rem;
+        border: 0.5px solid rgba(255,46,92,0.4);
+    }
+
+    .hero-left h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.2rem;
+        background: linear-gradient(135deg, #fff, var(--accent-2), var(--accent-1));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .hero-desc {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        max-width: 85%;
+        margin-bottom: 2rem;
+    }
+
+    .hero-stats {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1rem;
+    }
+
+    .stat-item {
+        border-left: 2px solid var(--accent-1);
+        padding-left: 0.8rem;
+    }
+    .stat-number {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--accent-2);
+    }
+    .hero-right {
+        background: rgba(18, 22, 35, 0.5);
+        backdrop-filter: blur(16px);
+        border-radius: 2rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 25px 40px -20px rgba(0,0,0,0.5);
+    }
+
+    /* ========= SPLIT LAYOUT für Manifest + Kern ========= */
+    .split-section {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 2.5rem;
+        margin: 4rem 0;
+        align-items: start;
+    }
+
+    /* Manifest-Karte – prominent links */
+    .manifest-card {
+        background: linear-gradient(145deg, var(--surface-elevated), #090c14);
+        border-radius: 2rem;
+        padding: 2rem;
+        border: 1px solid var(--border-dim);
+        position: sticky;
+        top: 2rem;
+        transition: all 0.2s;
+    }
+    .manifest-title {
+        font-size: 1.9rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(120deg, #fff, var(--accent-3));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+    .preview {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+    }
+    .expandable-content {
+        display: none;
+        margin-top: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px dashed var(--border-dim);
+        color: var(--text-secondary);
+    }
+    .expandable-content.active {
+        display: block;
+        animation: fadeSlide 0.3s ease;
+    }
+    .btn-modern {
+        background: transparent;
+        border: 1.5px solid var(--accent-1);
+        padding: 0.6rem 1.5rem;
+        border-radius: 2rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.25s;
+        margin-top: 1rem;
+        color: var(--accent-1);
+    }
+    .btn-modern:hover {
+        background: var(--accent-1);
+        color: white;
+        box-shadow: 0 0 10px rgba(255,46,92,0.4);
+    }
+
+    /* Themen-Vorschau rechte Seite – vertikales Card-Stacking */
+    .topics-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+    }
+    .topic-preview-card {
+        background: var(--surface);
+        border-radius: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid var(--border-dim);
+        transition: transform 0.2s, border-color 0.2s;
+        cursor: pointer;
+    }
+    .topic-preview-card:hover {
+        border-color: var(--accent-2);
+        transform: translateX(8px);
+    }
+    .topic-preview-card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+        background: linear-gradient(135deg, #fff, var(--accent-2));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+    .topic-tag {
+        font-size: 0.7rem;
+        color: var(--accent-1);
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+    }
+    .preview-sm {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    /* Detaillierte Themen (ausklappbar) */
+    .topic-detail {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(0, 230, 184, 0.05);
+        border-radius: 1rem;
+        color: var(--text-secondary);
+    }
+    .topic-detail.active {
+        display: block;
+    }
+
+    /* ======= AKkordeon / Weitere Positionen – im 3er Raster? ====== */
+    .positions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.6rem;
+        margin: 2rem 0 3rem;
+    }
+
+    .detail-glass {
+        background: var(--surface-elevated);
+        border-radius: 1.5rem;
+        padding: 1.2rem 1.5rem;
+        border: 1px solid rgba(255,255,255,0.03);
+        transition: all 0.2s;
+    }
+    .detail-glass summary {
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .detail-glass summary::-webkit-details-marker {
+        display: none;
+    }
+    .detail-glass summary::after {
+        content: '➕';
+        color: var(--accent-2);
+        font-size: 1.2rem;
+    }
+    .detail-glass[open] summary::after {
+        content: '➖';
+        color: var(--accent-1);
+    }
+    .details-content {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-dim);
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    footer {
+        margin-top: 4rem;
+        background: #03050a;
+        text-align: center;
+        padding: 3rem;
+        border-top: 1px solid rgba(255,46,92,0.2);
+    }
+
+    @keyframes fadeSlide {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+        }
+        .split-section {
+            grid-template-columns: 1fr;
+        }
+        .manifest-card {
+            position: static;
+        }
+        .hero-left h1 {
+            font-size: 2.5rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container" style="width:100%">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-badge">GEMEINDERATSWAHL GRAZ · 2026</div>
+                <h1>Stimmen für globale Gerechtigkeit</h1>
+                <p class="hero-desc">Antikapitalistisch · Antiimperialistisch · Feministisch · Internationalistisch</p>
+                <div class="hero-stats">
+                    <div class="stat-item"><span class="stat-number">100.000+</span><br>Ermordete in Gaza</div>
+                    <div class="stat-item"><span class="stat-number">#BDS</span><br>Für Boykott, Desinvestitionen, Sanktionen</div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <img src="Logo_Transparent.png" alt="Liste GAZA Logo" style="max-width:220px; margin:0 auto 1rem auto; display:block; filter: drop-shadow(0 0 8px rgba(0,230,184,0.4));">
+                <p style="text-align:center; font-weight:300;">Widerstand ist nicht nur ein Recht – es ist eine Pflicht, wenn das System tötet.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- SPLIT: Manifest + Kern-Themen als Vorschau -->
+    <div class="split-section">
+        <!-- Linke Spalte: vollständiges Manifest mit mehr/weniger -->
+        <div class="manifest-card">
+            <span style="color: var(--accent-1); font-size:0.8rem; text-transform:uppercase;">Unser Manifest</span>
+            <h2 class="manifest-title">Warum wir kandidieren</h2>
+            <div class="preview">
+                <p>Immer mehr Menschen merken: So wie Politik gerade läuft, kann es nicht weitergehen. Viele Probleme werden größer – egal, welche Partei an der Macht ist. Das liegt daran, dass das System an seine Grenzen stößt.</p>
+            </div>
+            <div class="expandable-content" id="manifestFull">
+                <p><strong>Das Problem mit dem System</strong><br>Unser Wirtschaftssystem basiert auf ständigem Wachstum, Ausbeutung von Mensch und Umwelt. Ressourcen werden knapper, Konflikte nehmen zu. Der imperiale Westen will seine Profite maximieren – anti-imperialistischer Widerstand wird militärisch unterdrückt.</p>
+                <p><strong>Warum „Weiter so“ keine Lösung ist</strong><br>Kopftuchverbote, autoritäre Tendenzen, und der Grazer Beschluss gegen BDS sind Symptome. Statt Völkermord in Gaza zu verurteilen, wird Israel-Kritik sanktioniert.</p>
+                <p><strong>Aufrüstung & Kriegstauglichkeit</strong><br>Millarden für Rüstung, Kauf von Kriegsgütern vom Völkermörder Israel. Wir wollen nicht sehenden Auges in den nächsten Krieg getrieben werden.</p>
+                <p><strong>Gaza steht als Symbol für den Bruch mit dieser Weltordnung</strong><br>Die Brutalität hat Millionen aufwecken lassen. Deshalb kandidieren wir in Graz – für lokale, aber global solidarische Politik.</p>
+            </div>
+            <button class="btn-modern" data-target="manifestFull">Mehr zum Manifest</button>
+        </div>
+
+        <!-- Rechte Spalte: interaktive Themen-Vorschau (3 Kernthemen) -->
+        <div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 1rem; letter-spacing:-0.2px;">⚡ Kernthemen im Fokus</h3>
+            <div class="topics-stack">
+                <!-- Thema 1 -->
+                <div class="topic-preview-card" data-topic="law">
+                    <div class="topic-tag">#Völkerrecht</div>
+                    <h3>Völkerrecht &amp; Straflosigkeit</h3>
+                    <div class="preview-sm">Recht des Stärkeren brechen – gleiches Recht für alle durchsetzen.</div>
+                    <div class="topic-detail" id="lawDetail"><p>Die systematische Missachtung des Völkerrechts, der „Hague Invasion Act“ und das Versagen des Sicherheitsrats: Wir fordern einen machtvollen Mechanismus für universelle Einhaltung. Gaza zeigt das System ist korrupt. Neubau von gerechten Institutionen!</p></div>
+                    <button class="btn-modern tiny-detail" style="margin-top:0.6rem; padding:0.3rem 1rem; font-size:0.75rem;" data-detail="lawDetail">+ Kontext</button>
+                </div>
+                <!-- Thema 2 -->
+                <div class="topic-preview-card" data-topic="imperial">
+                    <div class="topic-tag">#Antiimperialismus</div>
+                    <h3>Imperialismus – Die Wurzel des Übels</h3>
+                    <div class="preview-sm">USA & NATO als globale Räuberbande – wir sagen Nein.</div>
+                    <div class="topic-detail" id="imperialDetail"><p>Über 800 US-Stützpunkte, Wirtschaftssanktionen als Waffe, Stellvertreterkriege. Österreichs Aufrüstung dient nicht dem Frieden, sondern imperialen Interessen. Wir wollen eine multipolare Welt ohne Ausbeutung.</p></div>
+                    <button class="btn-modern tiny-detail" style="margin-top:0.6rem; padding:0.3rem 1rem;" data-detail="imperialDetail">+ Kontext</button>
+                </div>
+                <!-- Thema 3 -->
+                <div class="topic-preview-card" data-topic="hijab">
+                    <div class="topic-tag">#Anti-Rassismus</div>
+                    <h3>Kopftuchverbot &amp; Rassismus</h3>
+                    <div class="preview-sm">Rassistische Symbolpolitik, die von Sozialabbau ablenkt.</div>
+                    <div class="topic-detail" id="hijabDetail"><p>Das Kopftuchverbot ist ein rassistischer Eingriff, der anti-muslimischen Rassismus schürt. Wir stehen an der Seite der Mädchen und Lehrkräfte, die sich dem Boykott des Gesetzes widersetzen. Solidarität statt Spaltung.</p></div>
+                    <button class="btn-modern tiny-detail" style="margin-top:0.6rem; padding:0.3rem 1rem;" data-detail="hijabDetail">+ Kontext</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weitere Positionen – Dreispaltiges Akkordeon-Raster -->
+    <div style="margin: 4rem 0 1rem;">
+        <h2 class="manifest-title" style="font-size: 2rem;">Weitere Positionen</h2>
+        <div class="positions-grid">
+            <details class="detail-glass">
+                <summary>Repression in Graz</summary>
+                <div class="details-content">Überwachung, Kündigung von Konten der Friedensplattform, Raumverbote für Palästinasolidarität, der undemokratische BDS-Beschluss – wir fordern die Aufhebung und Meinungsfreiheit für alle.</div>
+            </details>
+            <details class="detail-glass">
+                <summary>Medien & Wahrheit</summary>
+                <div class="details-content">ORF, Kronen Zeitung – asymmetrische Berichterstattung, systematische Israelfreundlichkeit. Wir brechen das Schweigen: Medien entlarven und unabhängige, antiimperialistische Berichterstattung fördern.</div>
+            </details>
+            <details class="detail-glass">
+                <summary>Anti-Zionismus ≠ Antisemitismus</summary>
+                <div class="details-content">Zionismus ist rassistische Siedlerideologie; Anti-Zionismus ist Anti-Rassismus. Wir verteidigen das Recht, Israel als Apartheidstaat zu kritisieren – ohne jüdische Menschen anzugreifen.</div>
+            </details>
+            <details class="detail-glass">
+                <summary>Apartheidstaat Israel</summary>
+                <div class="details-content">Amnesty, B'Tselem und der ICC bezeichnen Israel als Apartheidregime. Waffenembargo, Sanktionen, Stopp aller Assoziationsabkommen – Nie wieder Komplizenschaft mit Völkermord.</div>
+            </details>
+            <details class="detail-glass">
+                <summary>Nie wieder Faschismus</summary>
+                <div class="details-content">Österreichs Regierung schweigt zu 100.000+ Toten in Gaza, liefert Motoren für Killerdrohnen. Historische Verantwortung verpflichtet: Stoppt die Aufrüstung, beendet die Komplizenschaft.</div>
+            </details>
+            <details class="detail-glass">
+                <summary>Feministischer Antikapitalismus</summary>
+                <div class="details-content">Ausbeutung, Patriarchat und Krieg hängen zusammen. Wir kämpfen für eine Gesellschaft ohne Geschlechterungerechtigkeit, ohne rassistische Grenzen – Care-Arbeit statt Rüstung.</div>
+            </details>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <img src="sticker_aus_social_media_logo.png" alt="Logo Liste GAZA" style="max-width: 90px; border-radius: 50%; margin-bottom: 1rem; opacity:0.8;">
+    <p>Liste GAZA – Stimmen für globale Gerechtigkeit</p>
+    <p style="font-size:0.8rem; margin-top:0.5rem;">Graz, 2026 • #FreePalestine • #Antikapitalistisch • #KeinVölkermord</p>
+</footer>
+
+<script>
+    // Manifest "Mehr lesen" Toggle
+    document.querySelectorAll('.btn-modern[data-target]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-target');
+            const contentDiv = document.getElementById(targetId);
+            if(contentDiv) {
+                contentDiv.classList.toggle('active');
+                this.textContent = contentDiv.classList.contains('active') ? 'Weniger anzeigen' : 'Mehr zum Manifest';
+            }
+        });
+    });
+    // Kleine Buttons für Topic-Details
+    document.querySelectorAll('.tiny-detail[data-detail]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const detailId = this.getAttribute('data-detail');
+            const detailDiv = document.getElementById(detailId);
+            if(detailDiv) {
+                detailDiv.classList.toggle('active');
+                this.textContent = detailDiv.classList.contains('active') ? '– Weniger' : '+ Kontext';
+            }
+        });
+    });
+</script>
+</body>
+</html>

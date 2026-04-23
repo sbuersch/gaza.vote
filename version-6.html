@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste GAZA - Gemeinderatswahl 2026</title>
+<style>
+    :root {
+        --bg-color: #0f0f0f;
+        --card-bg: #1a1a1a;
+        --text-main: #f0f0f0;
+        --text-muted: #b3b3b3;
+        --accent: #d32f2f;
+        --accent-hover: #b71c1c;
+        --border-radius: 8px;
+    }
+
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+    }
+
+    header {
+        position: relative;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('Plakatvorlage_logo_soldat_cut.jpg');
+        background-size: cover;
+        background-position: center;
+        min-height: 10vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+        border-bottom: 4px solid var(--accent);
+    }
+
+    header h1 {
+        font-size: clamp(2rem, 5vw, 4rem);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    header h1 span {
+        color: var(--accent);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 0.5rem;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .text-card {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .text-card h2 {
+        color: var(--accent);
+        margin-top: 0;
+    }
+
+    .highlight-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .highlight-card {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        border-top: 4px solid var(--accent);
+    }
+
+    .highlight-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .highlight-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .highlight-content h3 {
+        margin-top: 0;
+        color: var(--text-main);
+        font-size: 1.4rem;
+    }
+
+    .expandable-content {
+        display: none;
+        margin-top: 1rem;
+        color: var(--text-muted);
+    }
+
+    .expandable-content.active {
+        display: block;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .btn-toggle {
+        background-color: transparent;
+        color: var(--accent);
+        border: 2px solid var(--accent);
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 4px;
+        margin-top: 1.5rem;
+        align-self: flex-start;
+        transition: all 0.3s ease;
+    }
+
+    .btn-toggle:hover {
+        background-color: var(--accent);
+        color: white;
+    }
+
+    details {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    summary {
+        padding: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary::after {
+        content: '+';
+        color: var(--accent);
+        font-size: 1.5rem;
+    }
+
+    details[open] summary::after {
+        content: '−';
+    }
+
+    .details-content {
+        padding: 0 1.5rem 1.5rem 1.5rem;
+        color: var(--text-muted);
+    }
+
+    .details-content p {
+        margin-top: 0;
+    }
+
+    footer {
+        background-color: #050505;
+        padding: 3rem 2rem;
+        text-align: center;
+        border-top: 1px solid #333;
+    }
+
+    .footer-logo {
+        max-width: 150px;
+        margin-bottom: 1rem;
+    }
+    
+    .header-logo {
+        max-width: 80%; /* Passt sich auf mobilen Geräten an */
+        width: 400px; /* Maximale Breite auf großen Bildschirmen */
+        height: auto;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5)); /* Macht das Logo auf dem Hintergrund besser lesbar */
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="Logo_Transparent.png" alt="Liste GAZA Logo" class="header-logo">
+    <p>Stimmen für globale Gerechtigkeit</p>
+</header>
+
+<div class="container">
+    
+    <div class="text-card">
+        <h2>Warum wir kandidieren</h2>
+        <div class="preview">
+            Immer mehr Menschen merken: So wie Politik gerade läuft, kann es nicht weitergehen. Viele Probleme werden größer statt kleiner – egal, welche Partei gerade an der Macht ist. Das liegt nicht nur an einzelnen Entscheidungen, sondern daran, dass das ganze System an seine Grenzen stößt.</p>
+        </div>
+        <div class="expandable-content">
+            <p><strong>Das Problem mit dem System</strong><br>
+            Unser Wirtschaftssystem basiert darauf, dass immer mehr produziert und immer mehr Gewinn gemacht werden muss. Wachstum ist Pflicht – egal, welche Folgen das hat. Gleichzeitig liegt ein Großteil des Reichtums in den Händen weniger Menschen.</p>
+            <p>Das führt dazu, dass Mensch und Umwelt immer stärker ausgebeutet werden. Ressourcen werden knapper, Ungleichheit wächst – und Konflikte nehmen zu. Wenn mächtige Staaten um Einfluss und Rohstoffe kämpfen, entstehen Spannungen, die immer wieder auch in Kriegen enden. Der imperiale Westen/ Norden will keine friedliche Weltordnung mit fairen Handelsbeziehungen, sondern seine Profite auf Kosten anderer Völker maximieren. Ihr anti-imperialistischer Widerstand wird mit allen militärischen Mitteln unterdrückt.</p>
+            <p><strong>Warum „Weiter so“ keine gute Lösung ist</strong><br>
+            Trotzdem erzählen viele Politiker:innen, dass wir einfach so weitermachen können wie bisher. Doch das überzeugt immer weniger Menschen. Statt echte Lösungen zu suchen, wird oft mit Angstmache gearbeitet, mit Feindbildproduktionen oder mit Ablenkung. So stellen die neuen Kopftuchverbote nichts anderes als rassistische Symbolpolitik dar.</p>
+            <p>Der Regierungskurs wird immer autoritärer: Einschränkung der Bekleidungsfreiheit, Einschränkung der Meinungsfreiheit.</p>
+            <p>So hält die Grazer Stadtpolitik noch immer an einem Beschluss gegen die internationale zivilgesellschaftlich Boykott-Israel-Bewegung BDS und gegen den Anti-Zionismus fest. Anstatt Völkermord in Gaza zu verurteilen, sanktionieren sie Israel-Kritik und Palästina-Solidarität.</p>
+            <p><strong>Österreich soll wieder kriegstauglich werden</strong><br>
+            Milliarden sollen in die Aufrüstung gehen - noch dazu Rüstungsgüter vom Völkermörder Israel gekauft werden. Die Wehrfähigkeit der Bevölkerung soll gestärkt werden. Rüstung, Bundesheer, Wehrdienst ein positives Image bekommen. Wir wollen nicht sehenden Auges in einen nächsten Krieg getrieben werden. Es ist Zeit aufzuwachen.</p>
+            <p>Je länger wir diesen Weg gehen, desto schwieriger wird es, wieder umzudenken.</p>
+            <p><strong>Wir leben in einer globalen Welt</strong><br>
+            Unser Alltag hängt längst mit der ganzen Welt zusammen:<br>
+            Unsere Kleidung wird meist unter sehr schlechten Bedingungen produziert, notwendige Rohstoffe für unseren Wohlstand will der imperiale Westen billigst haben oder sich überhaupt mit Gewalt aneignen und unser Konsum hat Auswirkungen auf Klima und Umwelt weltweit.</p>
+            <p>Gleichzeitig profitieren wir im globalen Norden von Strukturen, die andere Länder benachteiligen und in die Armut treiben. Viele Menschen müssen deshalb ihre Heimat verlassen – nicht freiwillig, sondern weil sie keine Perspektive mehr haben.</p>
+            <p>Diese Probleme lassen sich nicht lösen, indem man einfach Grenzen dicht macht.</p>
+            <p><strong>Warum Gaza?</strong><br>
+            Gaza steht für die brutale Zuspitzung einer Weltordnung, in der der globale Norden den Rest der Welt ausbeutet, mordet und sich dabei noch als moralische Instanz inszeniert. Doch Gaza steht vor allem für die Hoffnung, damit ein für alle Mal Schluss zu machen. Die Grausamkeiten von USA und Israel haben Millionen aufwachen lassen – Menschen, die zuvor nichts mit Politik und Protesten am Hut hatten, gingen plötzlich lautstark auf die Straße - für Freiheit, Frieden und Gerechtigkeit. Wir wollen als Teil dieser Bewegung unseren Beitrag zur Überwindung des Kapitalismus leisten, eines Systems, welches den Krieg in sich trägt wie die Wolke den Regen.</p>
+            <p>Veränderung muss überall beginnen – nicht nur auf EU- oder Bundesebene, sondern auch lokal. Z.B. solidarisierte sich die Bürgermeisterin von Genua mit den Hafenarbeiter:innen ihrer Stadt, die die Beladung eines Schiffes mit Rüstungsgütern nach Israel bestreikten. Und die Stadt Barcelona fror wegen des Genozids in Gaza alle ihre Beziehungen mit Israel ein und rief zum Boykott des Apartheidstaates auf.</p>
+            <p>Deshalb kandidiert die Liste GAZA bei der Grazer Gemeinderatswahl 2026.</p>
+        </div>
+        <button class="btn-toggle">Mehr lesen</button>
+    </div>
+
+    <h2 class="section-title">Kernthemen</h2>
+    <div class="highlight-grid">
+        
+        <div class="highlight-card">
+            <img src="Bild_fuer_Text_2_Voelkerrecht.png" alt="Völkerrecht" class="highlight-img">
+            <div class="highlight-content">
+                <h3>Völkerrecht</h3>
+                <div class="preview">
+                    <p>Recht und Gesetz sind zu Papier gebrachte Vorschläge für nicht schädigendes Verhalten. Solange allerdings keine Macht ihre Einhaltung durchsetzen kann, sind sie dieses Papier nicht wert. Gerechtigkeit entsteht erst, wenn gleiches Recht für alle gilt und dessen Verletzung auch schwerwiegende Folgen nach sich zieht.</p>
+                </div>
+                <div class="expandable-content">
+                    <p>Obwohl als Lehre aus dem 2. Weltkrieg das nun ”geltende” Völkerrecht formuliert und festgeschrieben wurde, ist es immer noch dem Recht des Stärkeren, (US-) ”rules based order” bzw. dem alles relativierenden Veto-Recht im Un(!)sicherheitsrat ausgeliefert.</p>
+                    <p>Durch den ständigen und systematischen Bruch des ”geltenden” internationalen Rechts durch die Vetostaaten und deren Anhängsel und die daraus folgende faktische Straflosigkeit ist das Völkerrecht bis zur Unkenntlichkeit zerstört.</p>
+                    <p>Den Gipfelpunkt in der Festschreibung dieser Straflosigkeit bildet wohl das skandalöse US-Gesetz ”The Hague Invasion Act”, das dem US-Militär den Einmarsch in Den Haag, Holland, also in einem Nato-Land in Europa genehmigt, sollten US-Kriegsverbrecher vom Internationalen Strafgerichtshof verurteilt und dort eingesperrt werden.</p>
+                    <p>Gemäss dem Slogan NO JUSTICE - NO PEACE müssen auch Verbrechen der weniger oder länger zurückliegenden Geschichte aufgearbeitet werden, um Gerechtigkeit für alle sicherzustellen. Dies betrifft insbesondere die Verbrechen der Kolonialländer wie Massenmord, Sklaverei, Raub, Raubmord, Landnahme und Diebstahl. Ohne Bestrafung und Wiedergutmachung kann es keine Gerechtigkeit und damit auch keinen Frieden in der Welt geben.</p>
+                    <p>Das „geltende“ Völkerrecht konnte nicht einmal einen Genozid in Gaza verhindern. Dieses Versagen ist ein Hinweis auf den Zusammenbruch des internationalen Rechtssystems insgesamt. Seine Voreingenommenheit, seine politische Unterwerfung unter den Globalen Westen und seine Komplizenschaft bei Verbrechen, die vom Globalen Westens begangen werden, sind nun eindeutig offengelegt.</p>
+                    <p>Die Menschen jedoch, die den Schutz der internationalen Rechtssysteme am dringendsten benötigen, haben wenig Vertrauen in diese Mechanismen – und das zu Recht. Aber die Grundsätze der Gleichheit, der Freiheit und der Befreiung sind immer noch gültig. Wenn Gaza bewiesen hat, wie verrottet das System ist, wird sein Leiden hoffentlich zu einer Neudefinition dessen führen, was moralischer Universalismus bedeutet, und ein gestärkter globaler Süden den Wiederaufbau von Institutionen und Verfahren fördern, welche diesen Grundsätzen gerecht werden.</p>
+                    <p>Das heißt also, dass die Welt einen machtvollen Mechanismus braucht, der die Einhaltung des Völkerrechts ausnahmslos für alle erzwingen kann. Vor dem Völkerrecht darf niemand gleicher sein.</p>
+                    <p>Einen Anfang zur Respektierung internationalen Rechts kann auch jede Körperschaft wie z. B. die ”Menschenrechtsstadt” Graz machen, indem bei allen möglichen Verstößen dagegen klar Stellung bezogen wird, anstatt bei der feigen Strategie des Schweigens mitzumachen.</p>
+                    <p>Dafür tritt die Liste Gaza – Stimmen für globale Gerechtigkeit ein!</p>
+                </div>
+                <button class="btn-toggle">Mehr lesen</button>
+            </div>
+        </div>
+
+        <div class="highlight-card">
+            <img src="Bild_fuer_Text_5_Imperialismus.png" alt="Imperialismus" class="highlight-img">
+            <div class="highlight-content">
+                <h3>Imperialismus</h3>
+                <div class="preview">
+                    <p><strong>Die Wurzel des Übels: Warum wir die globale Dominanz der USA brechen müssen</strong><br>
+                    Es wäre bequem, die Kriege unserer Zeit als bloße „Ausrutscher“ oder das Resultat „böser Absichten“ einzelner Politiker zu betrachten. Doch wer nur an der Oberfläche kratzt, übersieht das System dahinter. Was wir heute erleben, ist kein Zufall, sondern logisches Ergebnis eines Wirtschaftssystems, das ohne Expansion und Ausbeutung nicht überleben kann. Es ist Zeit, Ross und Reiter zu nennen: Der US-Imperialismus ist nicht der „Polizist der Welt“, sondern der größte Räuber unserer Epoche.</p>
+                </div>
+                <div class="expandable-content">
+                    <p><strong>Warum müssen wir uns dagegen wehren?</strong><br>
+                    Wirtschaftliche Erpressung statt freier Handel. Die USA nutzen das globale Finanzsystem und den Dollar wie eine Waffe. Wer sich nicht unterwirft oder wagt, seine eigenen Ressourcen zum Wohle der eigenen Bevölkerung zu nutzen, wird mit Sanktionen überzogen, die ganze Gesellschaften aushungern. Es geht nicht um „Demokratie“, sondern um den Zugang zu Märkten und Rohstoffen für transnationale Konzerne. Dieser Drang zur ständigen Expansion führt zwangsläufig in den Konflikt.</p>
+                    <p>Die Militärmaschine als Lebensversicherung des Kapitals. Über 800 US-Militärstützpunkte weltweit dienen nicht unserer Sicherheit. Sie sind die Schlägertruppe eines Landes, welches den Rest der Welt in Abhängigkeit hält. Und die EU prügelt fleißig mit. Während man uns erzählt, Aufrüstung diene dem Frieden, wissen wir längst: Jeder Euro, der in Panzer und Raketen fließt, ist ein Euro, der bei Bildung, Gesundheit und Wohnbau fehlt. Wir finanzieren die Kriege der Eliten mit unserer eigenen Armut.</p>
+                    <p>Stellvertreterkriege auf dem Rücken der Völker. Ob in Afrika, Asien oder Südamerika das Muster ist immer gleich: Die USA provozieren Konflikte weit weg von den eigenen Grenzen, um Konkurrenten zu schwächen und die eigene Vorherrschaft zu zementieren. Die Zeche zahlen die einfachen Menschen, die als Kanonenfutter für geopolitische Schachspiele missbraucht werden. Wir weigern uns, diese strategischen Massaker als „Verteidigung von Werten“ zu akzeptieren.</p>
+                    <p>Die kulturelle und mediale Gleichschaltung. Der Imperialismus findet nicht nur mit Bomben statt, sondern auch in den Köpfen. Unsere Medien agieren oft wie die Pressestelle des Pentagons. Jedes Land, das eine eigenständige, souveräne Entwicklung anstrebt, wird sofort zum „Schurkenstaat“ erklärt. Wer sich nicht unterordnet, wird mit Sanktionen und Bomben überzogen. Wir sollen glauben, es gäbe keine Alternative zur westlichen Vorherrschaft. Doch wahre Freiheit bedeutet, dass jedes Volk seinen eigenen Weg gehen kann, ohne die Erlaubnis aus Washington einholen zu müssen.</p>
+                    <p>Gegen den US-Imperialismus vorzugehen, ist keine Frage der Ideologie, sondern eine Frage des Überlebens. Wenn wir eine Welt wollen, in der soziale Gerechtigkeit und echter Frieden möglich sind, müssen wir zuerst die Vorherrschaft der USA und seines Vasallen Israels in Westasien beenden. Es ist Zeit für eine Politik, die sich nicht mehr vor den Karren einer untergehenden Weltmacht spannen lässt.</p>
+                </div>
+                <button class="btn-toggle">Mehr lesen</button>
+            </div>
+        </div>
+
+        <div class="highlight-card">
+            <img src="Bild_fuer_Text_6_Kopftuchverbot.png" alt="Kopftuchverbot" class="highlight-img">
+            <div class="highlight-content">
+                <h3>Kopftuchverbot</h3>
+                <div class="preview">
+                    <p><strong>Staatlicher Zwang, begründet mit nichts als Bauchgefühl</strong><br>
+                    Anstatt der viel erwarteten Lösungen für den wirtschaftlichen Niedergang Österreichs hat sich unsere Regierung "gezwungen gesehen", ein de facto nicht existierendes Problem zu lösen. Man wolle die armen Mädchen von der Last eines vermeintlich aufgezwungenen Kopftuchs befreien. Und anscheinend geht Befreiung laut Regierung am besten, indem man einen neuen Zwang ins Gesetzbuch aufnimmt: nämlich den Zwang, das Kopftuch abzulegen.</p>
+                </div>
+                <div class="expandable-content">
+                    <p>Zahlen dazu, wie viele Mädchen überhaupt unfreiwillig ein Kopftuch tragen? Gibt es nicht. Die Mädchen selbst nach ihrer Meinung fragen? Braucht man nicht. Es ist ein Gesetz, das so weit entfernt von jeder Lebensrealität ist – wie eigentlich immer, wenn die ÖVP beginnt, mit ihrer „Bauernschläue“ in das gesellschaftliche Leben einzugreifen.</p>
+                    <p>Warum will die ÖVP überhaupt so ein Gesetz? Darüber kann natürlich nur spekuliert werden: Es ist nicht auszuschließen, dass eine Frau wie Claudia Bauer kurioserweise tatsächlich der Meinung ist, damit würde ein Beitrag zum gesellschaftlichen Fortschritt geleistet. Eine weitere (und wahrscheinlichere) Möglichkeit besteht darin, dass damit wieder einmal Symbolpolitik zur Besänftigung von aufgehetzten rechten Wähler:innen betrieben werden soll. Erstens für die eigenen Wähler:innen, welche ja auch merken, dass es mit Österreich bergab geht – so wird zumindest „irgendwas“ getan, völlig unabhängig davon, ob das nun die eigene Lage verändert oder nicht. Und zweitens für Wähler:innen potenzieller anderer Parteien nach dem Motto: „Seht her, wir sind genauso rassistisch.“ Das versuchen sich ja gerade alle Parteien in der einen oder anderen Form auf die Fahne zu schreiben.</p>
+                    <p>Dahinter steckt der Versuch durch rassistische Spaltung von eigentlichen Problemen wie Sozialabbau und Lohnraub abzulenken. Es geht um das Schüren von Feindbildern. Waren es in der österreichischen Geschichte, jüdischen Menschen, die stigmatisiert, ausgegrenzt und letztendlich verfolgt wurden, so sind es heute muslimische Mitbürger:innen. Anti-muslimischer Rassimus wird auf verschiedensten Ebenen geschürt: durch Kopftuchverbote, eine Islamlandkarte, auf der alle muslimischen Einrichtungen im Lande markiert werden, durch eine mediale Gleichsetzung von Islam mit Terror, durch Berichte des Österr. Integrationsfonds über mangelnde Integrationsbereitschaft bestimmter Gruppen, durch verordnete Wertekurse u.v.m. Die Förderung von anti-muslimischem Rassismus dient jedoch auch der Absicherung der Komplizenschaft unserer Regierung mit dem Völkermörder Israel. Israel versucht sich nämlich als fortschrittlichen jüdischen Staat zu inszenieren, der für “uns” gegen das Bollwerk feindlicher Islam kämpft. Oder wie es der deutsche Bundeskanzler Merz formulierte: Für uns die Drecksarbeit erledigt, als er versuchte Israels Völkermord und Angriffskriege zu rechtfertigen.</p>
+                    <p><strong>Was aber nun dagegen tun?</strong><br>
+                    In Städten wie Wien haben sich bereits erste informelle Aktionskomitees aus Lehrkräften, Schüler:innen und Eltern gebildet, die zum Boykott des Gesetzes aufrufen. Auch in anderen Teilen Österreichs meldeten sich Lehrerinnen und Lehrer zu Wort, die nicht bereit sind, Schülerinnen wegen ihrer Kleidung zu melden. Es wird auf die Anzahl der sich engagierenden Lehrkräfte ankommen, ob diese selbst dienstrechtliche Konsequenzen zu befürchten haben oder nicht. Die ÖVP könnte einzelne Lehrkräfte abstrafen lassen, aber niemals eine große Masse. Wir stehen solidarisch an der Seite der Mädchen und der mutigen Lehrkräfte. Man kann nur hoffen, dass dieser rassistische Eingriff abgewendet werden kann.</p>
+                </div>
+                <button class="btn-toggle">Mehr lesen</button>
+            </div>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">Weitere Positionen</h2>
+
+    <details>
+        <summary>Auch in Graz: Vermehrte Repression gegen Sytemkritiker:innen!</summary>
+        <div class="details-content">
+            <p>Das Muster ist altbekannt: Wenn sie selbst auf die wachsenden Herausforderungen keine überzeugenden politischen Antworten mehr zu geben haben, greifen Machthaber vermehrt zu Maßnahmen der mehr oder weniger offenen Unterdrückung. Verschiedene Instrumente werden angewandt: Überwachung, Meinungsteuerung und Angstmache, offene Repression durch Polizei und Justiz. In den letzten 25 Jahren wurden der von den USA geführte „globale Krieg gegen den Terror“ politisch genutzt, um die Instrumentarien zu vertiefen und zu erweitern. Auch die Covid19-Pandemie bot dafür reichlich Gelegheit. Wir wollen die Sache keineswegs dramatisieren. Aber die Signale sind unübersehbar. Auch in repräsentativen Demokratien hält man zwar viele Freiräume offen, sichert sich aber zugleich die Möglichkeiten des Zugriffs auf das Fühlen, Denken und die Mentalität der Menschen.</p>
+            <p>Überwachung: Die Entwicklung der digitalen Technik bis hin zur künstlichen Intelligenz stellt dafür früher ungeahnte Techniken bereit. Jede Spur im Internet, jeder Bestell- und Bezahlvorgang wird analysiert und wirtschaftlich oder politisch genutzt. Die Datenkraken sind börsennotiert. Die Tec-Milliardäre aus dem Silicon Valley sahnen dabei kräftig ab. Fake News und Schmutzkampagnen sind zu einem einträglichen Gewerbe geworden. Ganz vorne mit dabei sind die USA und die „Start-Up-Nation“ Israel. Einige Beispiele: Die israelische NSO Group vertreibt die Spionagesoftware Pegasus. Ein Bericht des EU-Paralaments aus dem Jahr 2022 nannte auch die österreichische Regierung als Nutzer von Pegasus. Das ebenfalls israelische „Team Jorge“ hat gegen Bezahlung demokratische Wahlen in zahlreichen Staaten manipuliert. Die britische Beratungsfirma Cambridge Analytica hat im Auftrag des Meta-Konzerns von Mark Zuckerberg ohne deren Zustimmung die Daten von 87 Mio. Facebook-Nutzern ausgewertet und 2016 die 1. Wahl Donald Trumps beeinflusst und das Brexit-Referendum beeinflusst. Um einem Gerichtsurteil zu entgehen zahlte Facebook im Zuge eines Vergleichs später 5 Mrd. US-Dollar Strafe. 2003 gründete der spätere Trump-Intimus Peter Thiel das Unternehmen Palantir, das weltweit an der staatlichen Überwachung durch KI und Gesichtserkennungstechnologien beteiligt ist. Das von Thiel und Elon Musk gegründete Bezahlsystem PayPal stellt seine Kundendaten gegen ebenfalls der staatlichen Nutzung zur Verfügung.</p>
+            <p>Mediale Meinungssteuerung: Der Einsatz von gezielter Propaganda ist natürlich uralt. Die Entwicklung der Sozialwissenschaften und der psychologischen Forschung hob diese Möglichkeiten vor gut 100 Jahren auf die neue Ebene der systematischen Anwendung. Eine der ersten bedeutenden historischen Beispiele der neuen Wirksamkeit der wissenschaftlichen Propaganda war der Eintritt der USA in den 1. Weltkrieg. Bei seiner Wiederwahl im Herbst 1916 hatte Präsident Woodrow Wilson den Wählern versprochen, die USA aus dem 1. Weltkrieg herauszuhalten. Für die Kriegsführung hatten sich Großbritannien und Frankreich inzwischen aber bei den amerikanischen Banken hoch verschuldet. Da in der Folge für die beiden europäischen Großmächte der Verlust des Krieges Krieges möglich schien, wussten die kreditgebenden US-Kapitalfraktionen vorzusorgen. Man organisierte eine riesige öffentliche Kampagne, um Wilson zum Kriegseintritt gegen die Mittelmächte zu bewegen. Was dann auch im April 1917 der Fall war. Für die Zeit nach dem Kriegsende war damit die Rückzahlung der verzinsten Kredite sichergestellt. Eine gute Lektüre über die Kriegspropaganda vom 1. Weltkrieg bis herauf zum Irak-Krieg 2003 ist das Buch von Anne Morelli, Die Prinzipien der Kriegspropaganda.</p>
+            <p>Politische Repression: Die Repression ist in allen neoliberal regierten Demokratien des Westens bemerkbar. Am deutlichsten ist sie im Zusammenhang der transatlantischen Schutzmantelpolitik gegenüber dem Apartheidregime in Israel. In vielen Bundesstaaten der USA müssen öffentliche Bedienstete unterschreiben, dass sie ihre Tätigkeit in Loyalität zu Israel verrichten. Universitäten, an denen es zu propalästinensischen Studentenprotesten kommt, werden die staatlichen Mittel gekürzt. Dozenten verlieren ihre Lehrstühle. In Großbritannien hat die innerparteilich einflußreiche Lobbygruppe „Labour for Israel“ den , weil er für die Rechte der Palästinenser:innen eintrat. Die britische Regierung hat die NGO „Palestine Action“ zur Terrororganisation erklärt. Gegen ihre Unterstützer:innen werden massenweise Verhaftungen durchgeführt. In der EU spielt darüberhinaus der Krieg in der Ukraine eine Rolle. Prorussische Medien werden verboten. Weil er russischen Medien Interviews gab, wurden dem in Brüssel lebenden ehemaligen Schweizer Militäranalytiker und UNO-Beamten Jaques Baud sämtliche Bankdienstleistungen gekappt. In Deutschland wurden gegen den kritischen Journalisten Hüseyn Dogun EU-Sanktionen verhängt. Er hat keinen Zugriff mehr auf sein Bankkonto. In Deutschland und Österreich, deren Parlamente und Regierungen sich einer sonderbaren „Staatsräson“ gegenüber Israel unterworfen haben, werden zionismuskritische Veranstaltungen abgesagt, Vortragende als Antisemiten diffamiert und ausgeladen. Beim Völkermord Israels in Gaza befleißigten sich die deutschen Leitmedien einer sehr israelfreundlichen Berichterstattung. Das ist mittlerweile im kürzlich erschienen Buch Staatsräsonfunk. Deutsche Medien und der Genozid in Gaza gut dokumentiert. Der Autor Fabian Goldmann hat dazu für den Zeitraum der 15 Monate nach dem 7. Oktober 2023 11.124 Berichte analysiert. Als besonders absurdes Vorgehen erscheint die mehrmalige Sperre des Bankkontos der in Berlin ansässigen NGO „Jüdische Stimme für einen gerechten Frieden in Palästina und Israel“. Natürlich macht da auch Österreich keine Ausnahme: Zum Internationalen Frauentag 2016 hatte die Nationalratspräsidentin Doris Bures die zionismuskritische holocaustüberlebende Hedy Epstein eingeladen, im Parlament eine Rede zu halten. Nach Kritik von Seite des Israelitischen Kultusgemeinde hat Bures sie kurzfristig wieder ausgeladen. Auf Druck des Fördergebers Stadt Wien, wurde im alternativen Kulturzentrum Amerlinghaus die Veranstaltung der „Israel Apartheid Week 2016“ untersagt. Der ORF-Staatsfunk betreibt eine deutlich proisraelische Bereichterstattung. Im ZiB durfte der der israelische Armeesprecher Arye Shalicar wiederholt seine zionistische Propaganda verbreiten. Dem exzellenten Nahost-Kenner Karim El- Gawhari wirde per Juni 2026 seine Stelle als Korrespondent nicht mehr verlängert. Die tendenziell proisraelischen ORF-Korrespondenten dürfen natürlich bleiben. Dem islamischen Hilfsverein Rahma Austria wurde für seine Hilfsaktionen in Gaza das Konto gesperrt. Propalästinensische Kundgebungen wurden untersagt und der Appell „From the River to the Sea, Palestine will be free!“ ein Ruf nach einer Einstaatenlösung wird kriminalisiert.</p>
+            <p>Und in Graz? Die Stadt hat sich 2001 selbst zur Menschenrechtsstadt erklärt. Was sie aber nicht daran hindert, das Menschenrecht der Meinungs- undVersammlungsfreiheit zu verletzen: Unter dem Druck vor allem von MMag. Elie Rosen, dem zionistisch gesinnten Präsidenten der Jüdischen Gemeinde Graz, hat die Stadt Graz 2019 in ihren Räumen Aktivitäten zur Unterstützung der gewaltfreien propalästinnensischen zivilgesellschaftlichen Boykottbewegung BDS untersagt. Wieder auf Druck von MMag. Rosen zog das Land Steiermark am 5. Mai 2020 mit einem fast gleichlautenden Beschluss nach. Auch Kritik am Zionismus, der apartheidsförmigen und siedlerkolonialistischen Staatsideologie Israels darf in Räumen der Stadt und des Landes nicht mehr stattfinden. Und damit scharfe Kritik an Israel nach Möglichkeit auch in keinen Räumen von Vereinen, Kirchen, etc. stattfinden kann, werden Raumvermietern bei Verstössen auch gleich die Förderungen gestrichen. Mehrfach wurde etwa der zioinismuskritsichen Steirischen Friedensplattform in Graz schon die Nutzung eines Raumes verweigert, zuletzt im alternativen Kulturzentrum Spektral. Wiederholt haben Friedensaktivist:innen die Grazer Gemeinderät:Innen aufgefordert, den üblen Beschluss aufzuheben oder abzuändern. Vergeblich! Kein/e einzige/r der 48 Mandatar:innen wagte es eine entsprechenden Antrag zu stellen. Zu groß ist offensichtlich die Angst mit der Keule des konstruierten Antisemitismus eine über die Rübe zu bekommen. Die Berichterstattung der Kleine Zeitung und Kronenzeitung, die beiden wichtigsten Tageszeitungen der Steiermark, haben eine deutlich prozionistische Tendenz. Der Steirischen Friedensplattform wurde per 30. juni 2024 durch die SPARDABank das Konto gekündigt. Der Grund: Der Verein hatte sich entsprechend seiner Verantwortung gegenüber dem Datenschutzgesetz und seinen Mitgliedern geweigert, der Bank die Daten aller Mitglieder bekanntzugeben. Wegen der Forderung nach einem freien Palästina zwischen Mittelmeer und Jordan wurden mehrere Grazer Palästina-Solidaritäts-Aktivist:innen vom Staatschutz zur Einvernahme vorgeladen. Der ihnen vorgehaltene strafrechtliche Tatverdacht war „Terrorunterstützung“ und „Verhetzung“. Zur Einschüchterung wurden die Einvernahmen z.T. von vollmaskierten Beamten durchgeführt.</p>
+            <p>Kurz:<br>
+            Im Sinne des historisch weisen Mottos „Wehret den Anfängen!“ hat die Liste Gaza – Stimmen für globale Gerechtigkeit / GAZA demokratipolitisch sehr gewichtige Gründe, um bei der Gemeinderatswahl am Wahlzettel stehen zu wollen.<br>
+            Wir vertrauen darauf, dass auch viele andere politisch wache Menschen sich nicht jetzt wegducken, nicht jetzt schlafen wollen, um dann eventuell später in einer Diktatur aufwachen zu müssen!</p>
+        </div>
+    </details>
+
+    <details>
+        <summary>Medien</summary>
+        <div class="details-content">
+            <p>Im allzu individualistischen Westen tragen seine Medien dieselbe Uniform – der Verdacht auf einseitige Berichterstattung, der von Rechts gerne instrumentalisiert wird, lässt sich beim Thema Palästina tatsächlich schwer abschütteln. Die großen westlichen Medien haben besonders in ihren Berichten über Westasien eigentümliche sprachliche Asymmetrien hervorgebracht: Während im US-amerikanischen und israelischen Kontext meist von „Präventivschlägen“, „Kollateralschäden“ und „Streitkräften“ zu lesen ist, wird die arabische Position (die palästinensische oder libanesische beispielsweise) konventioneller Weise ins extremistische Licht gerückt. Dann wird von „Massakern“, „Terroristen“ und von „Fanatismus“ gesprochen. Wer in der österreichischen Medienlandschaft sozialisiert wurde, stellt sich unter „Terrorist“ wohl eher keinen IDF-Soldaten vor.</p>
+            <p>Beispiele aus Österreich —> ORF, Standard, usw.</p>
+            <p>Man erweist den Imperialisten einen großen Dienst, wenn man die Neutralität der Medien betont. Gerade im Hinblick auf Westasien bereitet man damit einen fruchtbaren Boden für die Propaganda der Kriegsvorbereitung, wie sie z.B. in den USA während ihres sogen. „War on terror“ betrieben wurde, und wie sie in Europa gerade an der Tagesordnung steht wie lange nicht mehr. Das israelische Interesse an der Kultivierung imperialistischer Propaganda im Westen tritt an vielerlei Stellen hervor: siehe u. a. die jahrzehntelange Beeinflussung der US-Regierung durch die Lobbygruppe AIPAC oder die vertragliche Verpflichtung von deutschen Springer-Journalist/innen zur Israeltreue. Wenn man sich die Eigentümerstrukturen der größten europäischen und US-amerikanischen Medienhäuser ansieht, ist die mediale Verleumdung von palästinasolidarischen Aktvist:innen daher nicht verwunderlich. Die Palästinasolidarität strapaziert das Tolerierbare instrumenteller westlicher Medien.</p>
+            <p>Der Zusammenhang lässt sich einfach erklären: Medien – besonders die größten „Leitmedien“ – sind weder gesellschaftlich noch ökonomisch unabhängig, gleichzeitig beeinflussen sie wiederum aktiv das politische Klima. Ihre Marktinteressen erzeugen eine homogenisierende Dynamik in der Berichterstattung. Denn würde man die Kolonisierung Palästinas und den Genozid in Gaza als historische Tatsachen medial akkurat analysieren, dann würde das nicht nur eine Offenlegung der Komplizenschaft der europäischen Mächte bedeuten, sondern auch eine Schwächung ihrer Soft Power. Dies gilt konsequenterweise ebenso für die Berichterstattung über Venezuela, Kuba, Sudan, den Kongo, den Iran, Libanon, usw. Komplizen sind sie deshalb, weil sie sich innerhalb einer globalen Neuordnung als Weltmächte erhalten wollen. Dem Meinungspluralismus sind in den hiesigen liberalen Demokratien, wenn diese sich zukünftig als ökonomisch und politisch überlegene Weltmächte durchsetzen wollen, also diese Grenzen gesetzt: Jede Meinung, die dem europäischen Liberalismus gefährlich werden könnte, wird stumm gemacht oder höchstens diffamiert. Eine solche Meinung ist die fundamentale Kritik am US-Imperialismus und am Zionismus (sowie Israel als sein großes Kolonialprojekt), die die heutige liberale Ordnung infrage stellen muss.</p>
+            <p>Die Liste GAZA ist eine solche Stimme, die sich den genozidalen Diktaten der westlichen Regierungen, und dazu zählt die österreichische, nicht beugen will. Wir sind Stimmen für globale Gerechtigkeit – in Graz und überall.</p>
+        </div>
+    </details>
+
+    <details>
+        <summary>Anti-Zionismus bedeutet Anti-Rassismus!</summary>
+        <div class="details-content">
+            <p>Der Grazer Gemeinderat beschloss am 14. November 2019, dass Gruppen, welche anti-zionistisch sind und die internationale zivilgesellschaftliche Bewegung Boykott Israel unterstützen, keine Förderungen und keine städtischen Räume bekommen dürfen.</p>
+            <p><strong>Was ist Zionismus?</strong><br>
+            Zionismus ist der jüdische Nationalismus. Er beansprucht Vorrechte für das jüdische Volk und die Vorherrschaft im gesamten Palästina, in Teiles Syriens und des Libanon. Sie wollen auf diesem Gebiet einen Staat Groß-Israel errichten, in dem nicht-jüdische Menschen allenfalls als Minderheit ohne staatsbürgerliche Rechte geduldet sind. Dies bedeutet, dass die PalästinenserInnen mehrheitlich vertrieben oder ermordet werden müssen. Zionismus wurde zur Staatsideologie des europäischen siedlerkolonialen Staates Israels.</p>
+            <p>Jabotinsky, einer der Gründerväter des Zionismus, schrieb bereits 1923: „Jede indigene Bevölkerung in der Welt widersetzt sich den Kolonisten, solange sie die geringste Hoffnung hat, sich von der Gefahr, kolonisiert zu werden, befreien zu können. Das ist es, was die Araber in Palästina tun, und was sie weiterhin tun werden, solange es einen einzigen Funken Hoffnung gibt, dass sie die Umwandlung von Palästina in Israel verhindern können.“ Er verglich die jüdischen Siedler mit den Siedlern in Nordamerika und meinte, eine Kolonisierung wäre nie in Verhandlung mit der indigenen Bevölkerung möglich, sondern nur durch militärische Stärke. „Die zionistische Kolonisierung muss entweder aufhören oder ohne Rücksicht auf die einheimische Bevölkerung vorangehen. Dies bedeutet, dass sie nur unter dem Schutz einer Macht voranschreiten und sich entwickeln kann, die keine Rücksicht auf dieangestammten Bevölkerung nimmt– hinter einer eisernen Mauer, die die einheimische Bevölkerung nicht durchbrechen kann.“ Der israelische Langzeit-Ministerpräsident und Völkermörder Netanyahu bezeichnet sich als direkten Erben Jabotinskys, oft durch Verweise auf dessen Schriften und das Schwert, das er im Büro aufbewahrt.</p>
+            <p>Führende israelische Politiker bezeichneten Palästinenser:innen als Tiere. Es ist dies nichts Neues: Immer wenn europäische Kolonisatoren versucht haben, indigene Völker zu beherrschen, zu vertreiben oder zu vernichten, haben sie diese in abwertenden Begriffen beschrieben. Worte, denen die Kolonisatoren Taten folgen ließen. So auch der siedlerkoloniale Staat Israel. Zionismus ist die häufigste Todesursache im besetzten Palästina. Alleine seit Oktober 2023 ermordete die israelische Besatzungsarmee mindestens 100.000 Palästinenser:innen in Gaza. Aktuell hat der israelische Staat sechs Millionen Menschen in die Flucht getrieben (in Palästina, Libanon und dem Iran). Der zionistische Staat wurde bereits mit Gewalt gegründet! In der Nakba (der großen Katastrophe) wurden zwischen November 1947 und 1949 Dreiviertel der einheimischen Bevölkerung vertrieben und 513 Dörfer und Stadtviertel dem Erdboden gleichgemacht. Zunächst von den zionistischen Terrormilizen, die dann ab 15. Mai 1948 die israelische Armee bildeten. Der zionistische Staat will die Existenz des palästinensischen Volkes vernichten, seine Geschichte auslöschen und es seiner Zukunft berauben.<br>
+            Am 1. April verabschiedete die Knesset, das israelische Parlament ein zutiefst rassistisches Gesetz, den widerlichsten Ausdruck von Apartheid, nämlich die Todesstrafe ausschließlich für Palästinenser:innen. Während israelische illegale Siedler in der Westbank straffrei Palästinenser:innen ermorden, werden diejenigen, die gegen die Militärbesatzung Widerstand leisten zum Tode verurteilt.</p>
+            <p><strong>Was ist Anti-Zionismus?</strong><br>
+            Anti-Zionist:innen verurteilen die israelische Staatsideologie, den Zionismus als eine zutiefst rassistische Ideologie, die letztendlich in Apartheid und Völkermord gipfelt.</p>
+            <p>Anti-Zionist:innen treten für gleiche Rechte für alle Menschen zwischen Jordan und Mittelmeer ein, unabhängig ihrer Hautfarbe, Ethnie, Religion. Anti-Zionist:innen sind solidarisch mit dem palästinensischen Drang nach Freiheit und Gerechtigkeit und treten für die De-Kolonisierung Palästinas ein. Anti-Zionist:innen sind Anti-Rassist:innen und wenden sich prinzipiell gegen die Arroganz und Anmaßung von Menschen, sich über andere zu erheben – sei es im besetzten Palästina oder in Graz. Die Würde des Menschen ist unantastbar – aller Menschen. Auch in Graz soll niemand herabgewürdigt werden, keine muslimischen Mitbürger:innen, keine geflüchteten Menschen, keine Roma und Sinti, kein Bettler:innen, niemand.</p>
+            <p>Die Stadt Graz ging der zionistischen Lobby-Arbeit in die Falle und setzte Anti-Zionismus mit Anti-Semitismus gleich. Diese Gleichsetzung ist ein historischer und politischer Humbug und wird auch von führenden jüdischen Wissenschaftler:innen weltweit zurückgewiesen. Anti-Zionismus wendet sich gegen die rassistische Ideologie des israelischen Staates und Anti-Semitismus bedeutet Rassismus gegenüber jüdische Menschen. Judentum und Israel ist jedoch nicht das gleiche. Viele jüdische Menschen leben außerhalb von Israel und unter ihnen gibt es eine wachsende Zahl an Anti-Zionist:innen. Dass es der Zionismus mit dem Schutz von jüdischen Menschen nicht ernst nimmt, bewies er erst kürzlich wieder, als die israelische Armee ein Synagoge in Teheran bombardierte.</p>
+            <p><strong>Was bedeutet dieser Beschluss der Stadt Graz?</strong></p>
+            <ul>
+                <li>Er setzt die zionistische Logik der jüdischen Vorherrschaft und De-Humanisierung der Palästinenser:innen fort. Während die Hunderttausenden palästinensischen Ermordeten, Verletzten, Vertriebenen der Stadt Graz nichts Wert sind, bringen israelische Getötete das Grazer Rathaus zum Leuchten.</li>
+                <li>Zionismus will den palästinensischen Widerstand durch massive Repression und Tod zum Schweigen bringen – dieser städtische Beschluss gegen Anti-Zionismus will palästina-solidarische Stimmen in der Stadt zum Schweigen bringen.</li>
+                <li>Die Stadt Graz macht sich de facto der Komplizenschaft schuldig. Anstatt Völkermord klar zu verurteilen, für ein Waffenembargo gegen Israel einzutreten, verurteilt sie Boykottmaßnahmen und Israel-Kritik.</li>
+                <li>Der Beschluss sanktioniert Gruppen allein aufgrund einer israel-kritischen Haltung ihrer Mitglieder, obwohl diese Haltung sowohl verfassungskonform ist, als auch auf einem konsequenten Eintreten für die Menschenrechte und das Völkerrecht beruht. Das ist ein gefährlicher Präzedenzfall.</li>
+            </ul>
+            <p>Trotz Genozid in Gaza, tagtäglichen schweren Menschenrechtsverletzungen in der Westbank, dem Einführen der Todesstrafe für Palästinenser:innen, den neuerlichen Angriffskriegen gegen den Iran und den Libanon wagte bis lang keine einzige Partei im Gemeinderat die Aufhebung dieses Beschlusses zu fordern. Nicht einmal die Bürgermeister:innenpartei KPÖ setzt sich für die Aufhebung des Beschlusses ein, mit dem die Meinungsfreiheit massiv eingeschränkt wird.</p>
+            <p>Zionismus bedeutet Ungerechtigkeit. Nur ohne Zionismus kann es Frieden und Gerechtigkeit im arabischen Raum geben.<br>
+            Deshalb: Wählt Liste Gaza – Stimmen für globale Gerechtigkeit.</p>
+        </div>
+    </details>
+
+    <details>
+        <summary>Israel ist ein Apartheidstaat! Schluss mit Apartheid!</summary>
+        <div class="details-content">
+            <p>Das imperialistisch-kapitalistische System spaltet die Welt in einen reichen Globalen Norden, der auf Kosten des Globalen Südens lebt. Die Länder des Globalen Südens sind bereit, ihre Rohstoffe, landwirtschaftlichen Produkte, Waren zu einem angemessenen Preis zu verkaufen, von dem sie auch gut leben könnten. Jedoch sollen die Arbeitskräfte und Rohstoffe im Globalen Süden möglichst billig ausgebeutet werden, für die Profite der internationalen Konzerne und Banken. Rohstoffe, billige Waren und die dafür notwendigen Handelswege werden deswegen auch mit unfairen Verträgen, Aufstandsbekämpfung, Repression und Kriegen abgesichert.</p>
+            <p>Diese ungerechte Teilung der Welt ermöglicht einen relativen Wohlstand im Globalen Norden, weshalb viele Menschen hier leider dieses System akzeptieren, obwohl sie wissen, dass Milliarden darunter leiden, alle 5 Sekunden ein Kind am Hungertod stirbt. Demokratie und Sicherheit gibt es nur im Globalen Norden – der Wohlstand macht es möglich. Für den Globalen Süden gibt es autoritäre Systeme, Unterdrückung und Krieg.</p>
+            <p>Nichts versinnbildlicht die rassistische Spaltung der Welt mehr als die Apartheidmauer im besetzten Palästina. Sie trennt die europäischen jüdischen kolonialen Siedler von der indigenen palästinensischen Bevölkerung: für die einen gibt es Wohlstand, Privilegien, Sicherheit – für die anderen Militärbesatzung, wirtschaftliche Strangulierung, Menschenrechtsverletzungen, Gefangenenlager, Todesstrafe, Vertreibung, ethnische Säuberungen, Apartheid, Völkermord. Was wir vom imperialistisch-kapitalistische System weltweit kennen, spitzt sich im besetzten Palästina am schärfsten zu. Hier können wir am deutlichsten sehen, wohin Rassismus letztendlich führt: nämlich zu Faschismus.</p>
+            <p>Vom Globalen Süden wollen wir nur billige Waren, gutes Essen, günstige Urlaube. Menschen, die hierher kommen wollen, sperren wir aus. Sie, auf deren Kosten wir leben, sollen nicht teilhaben an unserem Wohlstand. Immer höher werden die Mauern und Zäune rund um Europa. Wer sie zu überwinden versucht, auf den wird geschossen. Oder wir lassen sie auf ihren gewagten Todesfahrten im Mittelmeer ertrinken. Oder wir schieben ab. Das Elend und die Elenden sollen ausgesperrt werden. Das Mittelmeer hat über Jahrhunderte Menschen verbunden – nun wurde es dank EU zur Todesfalle.</p>
+            <p>Das faschistoide Gedankengut, gemäß dem bestimmtes Leben mehr und anders weniger Wert hat, wird wieder populär. Hunderttausend ermordete Palästinenser:innen bringen das Rathaus nicht in den Farben Palästinas zum Leuchten – das Gedenken ist ausschließlich den israelischen Opfern vorbehalten. Rechtes Gedankengut wie bestimmte Menschen vom Zugang zu Sozialleistungen auszuschließen, findet in der Bevölkerung breite Zustimmung. Wer nichts leistet, soll auch nichts bekommen. Das hatten wir doch schon einmal in der Geschichte. Wer nicht „unsere“ Werte teilt, gehört nicht zu uns. In Krisenzeiten spielt die herrschende Klasse gerne am Klavier der rassistischen Spaltungen. Die Regierung braucht Geld für die Rüstungsproduktion, für die Kriegsvorbereitung. Das Geld holt sie sich durch Einsparungen im Sozial- und Gesundheitswesen. Viele Menschen sind nicht mehr zuversichtlich, sich ihr gutes Leben in Zukunft noch leisten zu können. Da kommt es der Regierung sehr gelegen, gegen Minderheiten wie geflüchtete und muslimische Menschen zu hetzen, ein Wir und die Anderen zu konstruieren, denen man sich überlegen fühlen kann. Wohin dieses Denken letztendlich führt, haben wir in der Vergangenheit im Faschismus gesehen und sehen wir heute im besetzten Palästina, nämlich zu Völkermord.</p>
+            <p>Liste Gaza – Stimmen für globale Gerechtigkeit tritt gemeinsam mit vielen Menschen aufrechten Rückgrats für den Abriss der Apartheidmauer im besetzten Palästina ein, für die Abschaffung von Frontex und der Festung Europa, gegen Abschiebungen, gegen rassistische Gesetze wie Kopftuchverbote. Wir treten ein für offene Grenzen, Liebe über Grenzen hinweg, Bleiberecht für alle und eine vielfältige Gesellschaft.</p>
+        </div>
+    </details>
+
+    <details>
+        <summary>Nie wieder Faschismus! Nie wieder Krieg! Keine Komplizenschaft mit Völkermord!</summary>
+        <div class="details-content">
+            <p>Am 8. Mai jährt sich zum 81. Mal das Ende des Zweiten Weltkrieges in Europa. Damals lautete die Losung „Nie wieder Faschismus! Nie wieder Krieg!“. Das stellt für uns die Lehre aus unserer Geschichte dar. Diese Lehre darf nicht nur für Weiße europäische Menschen gelten, sondern für alle Menschen auf der Welt. Deshalb ist es ein Skandal, dass unsere Regierung und sämtliche Parlamentsparteien dem Völkermörder Israel die Nibelungentreue schwören. Mit dieser Haltung geben Staaten wie Österreich Israel grünes Licht für weitere Kriegsverbrechen und Verbrechen gegen die Menschlichkeit wie wir aktuell an den tagtäglichen Waffenstillstandsverletzungen in Gaza und dem Terror der Besatzungsarmee und der illegalen Siedler in der Westbank, im Libanon und im Iran sehen können.</p>
+            <p>Österreichische Politiker:innen machen sich nicht nur durch ihr Schweigen mitschuldig an einem Völkermord, sondern aktiv durch ihr Handeln: sie stimmten in der UNO gegen einen Waffenstillstand, sie stellen sich gegen die Aussetzung des EU-Israel-Assoziationsabkommen, sie zeigen Verständnis für Israels Handeln, legitimieren Völkermord mit Selbstverteidigung, stellen den Haftbefehl des Internationalen Strafgerichtshofes gegen den Völkermörder Netanyahu infrage, normalisieren Völkermord, indem sie die Teilnahme Israels am Song Contest ermöglichen, verhindern nicht die Lieferung von Motoren der österreichischen Firma Rotax an Israel für Killerdrohnen.</p>
+            <p>Wer heute noch den Genozid in Gaza leugnet, begeht Realitätsverweigerung. Auch in Österreichs Geschichte gab es genug Menschen, die selbst nach 1945 noch den Völkermord unter den Nazis leugneten. Führende Genozidforscher wie Omar Bartov und die Internationale Vereinigung von Genozidforschern sprechen von Völkermord, führende Menschenrechtsorganisationen wie Amnesty International, Human Rights Watch, B’tselem sprechen von Völkermord, der Internationale Gerichtshof hat die Klage von Südafrika gegen Israel wegen Völkermord in Gaza angenommen – was brauchen die österreichischen Parteien noch mehr, um Israel zu sanktionieren? Nicht einmal nach der Einführung der Todesstrafe ausschließlich für Palästinenser:innen werden Sanktionen gefordert. Die mindestens 100.000 Ermordeten in Gaza sind kein „Kollerateralschaden“, sondern führende israelische Politiker haben bereits im Oktober 2023 davon gesprochen, den Gazastreifen dem Erdboden gleichmachen zu wollen, die gesamte Bevölkerung vertreiben und vernichten zu wollen, mit Hunger und Bomben. Diese artikulierte Absicht ist ein auuschlaggebendes Kriterium für die Bewertung als Genozid. Der Apartheidstaat und Völkermörder Israel benötigt Druck von außen, ansonsten wird er seine siedlerkoloniale Expansionspolitik nicht beenden. Dafür geht Israel über Leichen.</p>
+            <p>Weil die Politik in Österreich zu diesem Völkermord schweigt, sich der Komplizenschaft schuldig macht, braucht es uns als Zivilgesellschaft. Wir müssen die Stimme weiterhin erheben. Deshalb Liste Gaza – Stimmen für globale Gerechtigkeit.</p>
+        </div>
+    </details>
+
+</div>
+
+<footer>
+    <img src="sticker_aus_social_media_logo.png" alt="Liste Gaza Logo" class="footer-logo">
+    <p>&copy; 2026 Liste GAZA - Stimmen für globale Gerechtigkeit. Graz.</p>
+</footer>
+
+<script>
+    document.querySelectorAll('.btn-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+            const content = this.previousElementSibling;
+            content.classList.toggle('active');
+            if (content.classList.contains('active')) {
+                this.textContent = 'Weniger lesen';
+            } else {
+                this.textContent = 'Mehr lesen';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
